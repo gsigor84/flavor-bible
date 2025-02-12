@@ -4,6 +4,8 @@ import React, { useState, useEffect } from "react";
 import VegetablePairings from "../components/VegetablePairings";
 import SpicesHerbsPairings from "../components/SpicesHerbsPairings";
 import ExtraPairings from "../components/ExtraPairings";
+import AiPairings from "./AiPairings.js";
+import RecipeGenerator from "../components/RecipeGenerator";
 
 export default function MeatPairings() {
   const [meats, setMeats] = useState([]);
@@ -67,15 +69,9 @@ export default function MeatPairings() {
     setSelectedExtras([]);
   };
 
-  const toggleSelection = (item, setSelectedList) => {
-    setSelectedList((prev) =>
-      prev.includes(item) ? prev.filter((v) => v !== item) : [...prev, item]
-    );
-  };
-
   const fetchSpicesAndHerbs = async () => {
     if (!selectedMeat || selectedVegetables.length === 0) {
-      setSpicesAndHerbs([]);
+      console.log("Please select both a meat and at least one vegetable.");
       setNoMatchMessage("Please select a meat and at least one vegetable.");
       return;
     }
@@ -98,18 +94,19 @@ export default function MeatPairings() {
   };
 
   return (
-    <div className="w-full mx-0 px-0 my-20">
-      {/* ✅ Title Aligned to the Left */}
-      <h2 className="text-3xl font-bold text-black uppercase tracking-wide mb-6 text-left">
+    <div className="w-full mx-auto px-6 lg:px-12 py-16">
+
+      {/* Section Title */}
+      <h2 className="text-4xl font-bold text-black uppercase tracking-wide mb-6 text-left">
         Select a Meat
       </h2>
 
-      {/* ✅ Meat Dropdown - Left Aligned */}
-      <div className="relative w-full max-w-[250px]">
+      {/* Meat Dropdown */}
+      <div className="relative w-full max-w-[300px] mb-8">
         <select
           value={selectedMeat}
           onChange={(e) => setSelectedMeat(e.target.value)}
-          className="w-full p-2 text-lg font-medium text-black bg-white outline-none focus:ring-0 focus:outline-none appearance-none pr-8"
+          className="w-full p-3 text-lg font-semibold text-black bg-white  focus:ring-2 "
         >
           <option value="">Choose a meat</option>
           {meats.map((meat) => (
@@ -118,40 +115,36 @@ export default function MeatPairings() {
             </option>
           ))}
         </select>
-        {/* Custom Arrow */}
-        <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-          ▼
+      </div>
+
+      {/* 🔹 3-Column Layout for Pairings */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="flex flex-col p-4 rounded-lg shadow-none">
+
+
+          <VegetablePairings {...{ pairings, selectedVegetables, setSelectedVegetables, fetchSpicesAndHerbs }} />
+        </div>
+
+        <div className="flex flex-col p-4 rounded-lg shadow-none">
+
+
+          <SpicesHerbsPairings {...{ spicesAndHerbs, selectedSpices, setSelectedSpices }} />
+        </div>
+
+        <div className="flex flex-col p-4 rounded-lg shadow-none">
+
+          <ExtraPairings {...{ selectedMeat, selectedVegetables, selectedSpices, extraPairings, setExtraPairings, selectedExtras, setSelectedExtras }} />
         </div>
       </div>
 
-      {/* ✅ Grid Layout (Left Aligned, Fixed Width for Pairing Names) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-6 mt-6 items-start w-full">
-        {/* Vegetable Pairings */}
-        <div className="w-full">
-          <VegetablePairings
-            pairings={pairings}
-            selectedVegetables={selectedVegetables}
-            setSelectedVegetables={setSelectedVegetables}
-            fetchSpicesAndHerbs={fetchSpicesAndHerbs}
-          />
+      {/* 🔹 2-Column Layout for Recipe & AI Pairings */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 items-start">
+        <div className="flex flex-col h-full">
+          <RecipeGenerator {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
         </div>
 
-        {/* Spices & Herbs Pairings */}
-        <div className="w-full">
-          <SpicesHerbsPairings
-            spicesAndHerbs={spicesAndHerbs}
-            selectedSpices={selectedSpices}
-            setSelectedSpices={setSelectedSpices}
-          />
-        </div>
-
-        {/* Extra Pairings */}
-        <div className="w-full">
-          <ExtraPairings
-            extraPairings={extraPairings}
-            selectedExtras={selectedExtras}
-            setSelectedExtras={setSelectedExtras}
-          />
+        <div className="flex flex-col h-full">
+          <AiPairings {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
         </div>
       </div>
     </div>

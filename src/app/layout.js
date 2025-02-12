@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased bg-white text-black">
 
         {/* ✅ Page Content */}
-        <main className="px-4 sm:px-2 md:px-8 lg:px-12 py-6 sm:py-2 md:py-4 lg:py-12">
+        <main className="px-0 py-0 sm:px-2 sm:py-2 md:px-8 md:py-4 lg:px-12 lg:py-12">
           {children}
         </main>
 

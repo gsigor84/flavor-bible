@@ -44,7 +44,7 @@ export default function Dashboard() {
   return (
     <div className={`min-h-screen bg-white text-black ${cabin.className}`}>
       {/* ✅ Unified Container for Consistent Spacing */}
-      <div className="w-full px-6 md:px-10">
+      <div className="w-full px-2 sm:px-6 md:px-10">
         {/* Top Black Line (Now Inside Container) */}
         <div className="w-full h-[2px] bg-black"></div>
 

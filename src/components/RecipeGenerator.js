@@ -44,7 +44,7 @@ export default function RecipeGenerator({ selectedMeat, selectedVegetables, sele
   return (
     <div className="w-full max-w-md mx-auto mt-6 px-4">
       {/* Divider */}
-      <div className="w-full h-[2px] bg-black"></div>
+      <div className="w-full h-[2px] bg-black mb-6"></div>
 
       {/* Section Title */}
       <h4 className="text-2xl font-bold uppercase tracking-wide text-black text-left mb-6">
@@ -56,11 +56,9 @@ export default function RecipeGenerator({ selectedMeat, selectedVegetables, sele
         <button
           onClick={fetchRecipe}
           disabled={!selectedMeat || selectedVegetables.length === 0 || selectedSpices.length === 0}
-          className={`px-6 py-3 font-semibold uppercase tracking-wide border border-black transition-all 
-            ${selectedMeat && selectedVegetables.length && selectedSpices.length
-              ? "bg-black text-white hover:bg-white hover:text-black"
-              : "bg-gray-400 text-gray-200 cursor-not-allowed"
-            }`}
+          className="w-full px-6 py-3 text-center font-semibold uppercase tracking-wide border border-black transition-all 
+             bg-black text-white hover:bg-white hover:text-black 
+             disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed"
         >
           {loading ? "Generating Recipe..." : "Get Recipe"}
         </button>

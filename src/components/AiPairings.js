@@ -5,6 +5,10 @@ import React, { useState } from "react";
 // Use Fly.io API URL from environment variable or fallback to localhost for local testing
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:5000";
 
+// Force API calls to use the local Flask server on port 8080
+//const API_BASE_URL = "http://127.0.0.1:8080"; // Local development only
+
+
 export default function AiPairings({ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }) {
   const [aiPairings, setAiPairings] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -32,6 +36,13 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
       }
 
       const data = await response.json();
+      console.log("Sending AI Pairings Request:", {
+        meat: selectedMeat,
+        vegetables: selectedVegetables,
+        spices: selectedSpices,
+        extras: selectedExtras,
+      });
+
 
       // Ensure `data.ai_pairings` is an array before setting state
       if (Array.isArray(data.ai_pairings)) {
@@ -48,7 +59,7 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-10 px-4">
+    <div className="w-full max-w-md mx-auto mt-6 px-4">
       {/* Section Divider */}
       <div className="w-full h-[2px] bg-black mb-6"></div>
 
@@ -62,11 +73,9 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
         <button
           onClick={fetchAiPairings}
           disabled={!selectedMeat || selectedVegetables.length === 0 || selectedSpices.length === 0}
-          className={`px-6 py-3 font-semibold uppercase tracking-wide border border-black transition-all w-full max-w-xs
-            ${selectedMeat && selectedVegetables.length && selectedSpices.length
-              ? "bg-black text-white hover:bg-white hover:text-black"
-              : "bg-gray-400 text-gray-200 cursor-not-allowed"
-            }`}
+          className="w-full px-6 py-3 text-center font-semibold uppercase tracking-wide border border-black transition-all 
+             bg-black text-white hover:bg-white hover:text-black 
+             disabled:bg-gray-400 disabled:text-gray-200 disabled:cursor-not-allowed"
         >
           {loading ? "Fetching AI Pairings..." : "Get AI Pairings"}
         </button>

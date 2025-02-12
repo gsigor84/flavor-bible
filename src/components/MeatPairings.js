@@ -94,7 +94,7 @@ export default function MeatPairings() {
   };
 
   return (
-    <div className="w-full mx-auto px-6 lg:px-12 py-16">
+    <div className="w-full mx-auto py-16">
 
       {/* Section Title */}
       <h2 className="text-4xl font-bold text-black uppercase tracking-wide mb-6 text-left">
@@ -119,19 +119,19 @@ export default function MeatPairings() {
 
       {/* 🔹 3-Column Layout for Pairings */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="flex flex-col p-4 rounded-lg shadow-none">
+        <div className="flex flex-col">
 
 
           <VegetablePairings {...{ pairings, selectedVegetables, setSelectedVegetables, fetchSpicesAndHerbs }} />
         </div>
 
-        <div className="flex flex-col p-4 rounded-lg shadow-none">
+        <div className="flex flex-col">
 
 
           <SpicesHerbsPairings {...{ spicesAndHerbs, selectedSpices, setSelectedSpices }} />
         </div>
 
-        <div className="flex flex-col p-4 rounded-lg shadow-none">
+        <div className="flex flex-col">
 
           <ExtraPairings {...{ selectedMeat, selectedVegetables, selectedSpices, extraPairings, setExtraPairings, selectedExtras, setSelectedExtras }} />
         </div>
@@ -140,11 +140,12 @@ export default function MeatPairings() {
       {/* 🔹 2-Column Layout for Recipe & AI Pairings */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 items-start">
         <div className="flex flex-col h-full">
-          <RecipeGenerator {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
+          <AiPairings {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
         </div>
 
         <div className="flex flex-col h-full">
-          <AiPairings {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
+          <RecipeGenerator {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
+
         </div>
       </div>
     </div>

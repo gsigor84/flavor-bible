@@ -50,7 +50,7 @@ export default function Dashboard() {
 
         {/* HEADER SECTION */}
         <header className="py-6 flex justify-between items-center">
-          <h1 className="text-2xl font-bold uppercase tracking-wide">ViralVortex</h1>
+          <h1 className="text-2xl font-bold uppercase tracking-wide">Flavor Bible</h1>
           {/* Logout Button */}
           <button
             onClick={async () => {

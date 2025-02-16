@@ -1,20 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-// Use Fly.io API URL from environment variable or fallback to localhost for local testing
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:5000";
-
-// Force API calls to use the local Flask server on port 8080
-//const API_BASE_URL = "http://127.0.0.1:8080"; // Local development only
-
+// Use Fly.io API URL or fallback to localhost
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "http://127.0.0.1:8080";
 
 export default function AiPairings({ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }) {
   const [aiPairings, setAiPairings] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Fetch AI-based pairing suggestions
+  // 🔹 **Normalize Cache Key to Avoid Mismatches**
+  const getCacheKey = () => {
+    return `${selectedMeat || "None"}-${(selectedVegetables || []).join("_")}-${(selectedSpices || []).join("_")}-${(selectedExtras || []).join("_")}`;
+  };
+
+  // 🔹 **Check for Cached Data on Load**
+  useEffect(() => {
+    const cachedData = localStorage.getItem(getCacheKey());
+    if (cachedData) {
+      console.log("🔄 Using Cached AI Pairings");
+      setAiPairings(JSON.parse(cachedData));
+    }
+  }, [selectedMeat, selectedVegetables, selectedSpices, selectedExtras]);
+
+  // 🔹 **Fetch AI Pairings (Only When Needed)**
   const fetchAiPairings = async () => {
     setLoading(true);
     setError("");
@@ -36,23 +46,15 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
       }
 
       const data = await response.json();
-      console.log("Sending AI Pairings Request:", {
-        meat: selectedMeat,
-        vegetables: selectedVegetables,
-        spices: selectedSpices,
-        extras: selectedExtras,
-      });
+      console.log("🔹 AI Pairings Response:", data);
 
+      // ✅ **Cache results for future requests**
+      localStorage.setItem(getCacheKey(), JSON.stringify(data.ai_pairings));
 
-      // Ensure `data.ai_pairings` is an array before setting state
-      if (Array.isArray(data.ai_pairings)) {
-        setAiPairings(data.ai_pairings);
-      } else {
-        throw new Error("Invalid AI response format");
-      }
+      setAiPairings(data.ai_pairings);
     } catch (error) {
-      console.error("Error fetching AI pairings:", error);
-      setError("Failed to load AI pairings.");
+      console.error("❌ Error fetching AI pairings:", error);
+      setError("Failed to load AI pairings. Try again later.");
     } finally {
       setLoading(false);
     }
@@ -88,9 +90,11 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
       {aiPairings.length > 0 && (
         <ul className="grid grid-cols-1 gap-y-4">
           {aiPairings.map((pair, index) => (
-            <li key={index} className="text-lg text-black leading-tight border-b border-gray-300 pb-3">
+            <li key={index} className="text-lg text-black leading-tight  pb-3">
               <span className="font-bold block mb-1">{pair.pairing}</span>
-              <span className="text-gray-700 text-sm">{pair.tip}</span>
+              {pair.suggestion && (
+                <span className="text-gray-700 text-sm">Pairs well with: {pair.suggestion}</span>
+              )}
             </li>
           ))}
         </ul>

@@ -69,7 +69,7 @@ export default function RecipeGenerator({ selectedMeat, selectedVegetables, sele
 
       {/* Display the Recipe */}
       {recipe && (
-        <div className="border border-gray-300 p-4 rounded-lg bg-gray-100">
+        <div className=" p-4  bg-gray-100">
           <h2 className="text-xl font-bold text-black mb-2">{recipe.title}</h2>
 
           <h3 className="font-semibold text-black">Ingredients:</h3>

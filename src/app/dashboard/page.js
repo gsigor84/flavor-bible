@@ -53,12 +53,6 @@ export default function Dashboard() {
   return (
     <div className={`min-h-screen bg-white text-black ${cabin.className}`}>
       <div className="w-full px-2 sm:px-6 md:px-10">
-        <NavBar
-          selectedMeat={selectedMeat}
-          selectedVegetables={selectedVegetables}
-          selectedSpices={selectedSpices}
-          selectedExtras={selectedExtras}
-        />
 
         <section className="my-16 py-6">
           <h2 className="text-4xl sm:text-6xl font-bold">Flavor <br />Combinations Guide</h2>

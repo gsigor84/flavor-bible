@@ -61,7 +61,7 @@ export default function AiPairings({ selectedMeat, selectedVegetables, selectedS
   };
 
   return (
-    <div className="w-full max-w-md mx-auto mt-6 px-4">
+    <div className="w-full max-w-md mt-6">
       {/* Section Divider */}
       <div className="w-full h-[2px] bg-black mb-6"></div>
 

@@ -1,4 +1,4 @@
-"use client";
+"use client"; // ✅ Ensure this is a client component
 
 import React, { useState, useEffect } from "react";
 import VegetablePairings from "../components/VegetablePairings";
@@ -7,106 +7,112 @@ import ExtraPairings from "../components/ExtraPairings";
 import AiPairings from "./AiPairings.js";
 import RecipeGenerator from "../components/RecipeGenerator";
 
-export default function MeatPairings() {
+export default function MeatPairings({ setSelectedMeat, setSelectedVegetables, setSelectedSpices, setSelectedExtras }) {
   const [meats, setMeats] = useState([]);
-  const [selectedMeat, setSelectedMeat] = useState("");
+  const [selectedMeatLocal, setSelectedMeatLocal] = useState("");
   const [pairings, setPairings] = useState([]);
-  const [selectedVegetables, setSelectedVegetables] = useState([]);
+  const [selectedVegetablesLocal, setSelectedVegetablesLocal] = useState([]);
   const [spicesAndHerbs, setSpicesAndHerbs] = useState([]);
-  const [selectedSpices, setSelectedSpices] = useState([]);
+  const [selectedSpicesLocal, setSelectedSpicesLocal] = useState([]);
   const [extraPairings, setExtraPairings] = useState([]);
-  const [selectedExtras, setSelectedExtras] = useState([]);
-  const [noMatchMessage, setNoMatchMessage] = useState("");
+  const [selectedExtrasLocal, setSelectedExtrasLocal] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
+  // ✅ Fetch available meats when the component mounts
   useEffect(() => {
     fetch("/api/meat-categories")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setMeats(data);
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to fetch meats.");
+        return res.json();
       })
-      .catch((error) => console.error("Error fetching meats:", error));
+      .then((data) => setMeats(Array.isArray(data) ? data : []))
+      .catch((error) => setErrorMessage(error.message));
   }, []);
 
+  // ✅ Fetch pairings when a meat is selected
   useEffect(() => {
-    if (selectedMeat) {
+    if (selectedMeatLocal) {
       resetSelections();
-      fetch(`/api/pairings?ingredient=${selectedMeat}`)
-        .then((res) => res.json())
+      fetch(`/api/pairings?ingredient=${selectedMeatLocal}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Failed to retrieve pairings, try again later.");
+          return res.json();
+        })
         .then((data) => setPairings(data.pairings || []))
-        .catch((error) => console.error("Error fetching pairings:", error));
+        .catch((error) => setErrorMessage(error.message));
+
+      // ✅ Pass the selected meat up to Dashboard/NavBar
+      setSelectedMeat(selectedMeatLocal);
     }
-  }, [selectedMeat]);
+  }, [selectedMeatLocal]);
 
-  useEffect(() => {
-    if (selectedSpices.length > 0) {
-      fetchExtraPairings();
-    }
-  }, [selectedSpices]);
-
-  const fetchExtraPairings = async () => {
-    if (!selectedMeat || selectedVegetables.length === 0 || selectedSpices.length === 0) return;
-
-    try {
-      const response = await fetch(
-        `/api/extra-pairings?meat=${encodeURIComponent(selectedMeat)}&vegetables=${encodeURIComponent(selectedVegetables.join(","))}&spices=${encodeURIComponent(selectedSpices.join(","))}`
-      );
-
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-      const data = await response.json();
-      setExtraPairings(data.extra_pairings || []);
-    } catch (error) {
-      console.error("Error fetching extra pairings:", error);
-    }
-  };
-
-  const resetSelections = () => {
-    setPairings([]);
-    setSelectedVegetables([]);
-    setSpicesAndHerbs([]);
-    setSelectedSpices([]);
-    setExtraPairings([]);
-    setSelectedExtras([]);
-  };
-
+  // ✅ Fetch spices & herbs after vegetables are selected
   const fetchSpicesAndHerbs = async () => {
-    if (!selectedMeat || selectedVegetables.length === 0) {
-      console.log("Please select both a meat and at least one vegetable.");
-      setNoMatchMessage("Please select a meat and at least one vegetable.");
+    if (!selectedMeatLocal || selectedVegetablesLocal.length === 0) {
+      setErrorMessage("Please select a meat and at least one vegetable.");
       return;
     }
-
-    setNoMatchMessage("");
-
+    setErrorMessage("");
     try {
       const response = await fetch(
-        `/api/spices-herbs?meat=${encodeURIComponent(selectedMeat)}&vegetables=${encodeURIComponent(selectedVegetables.join(","))}`
+        `/api/spices-herbs?meat=${encodeURIComponent(selectedMeatLocal)}&vegetables=${encodeURIComponent(selectedVegetablesLocal.join(","))}`
       );
-
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
+      if (!response.ok) throw new Error("An error occurred while fetching spices & herbs.");
       const data = await response.json();
       setSpicesAndHerbs(data.spices_herbs || []);
     } catch (error) {
-      console.error("Error fetching spices & herbs:", error);
-      setNoMatchMessage("An error occurred while fetching data.");
+      setErrorMessage(error.message);
     }
+  };
+
+  // ✅ Fetch extra pairings when spices are selected
+  const fetchExtraPairings = async () => {
+    if (!selectedMeatLocal || selectedVegetablesLocal.length === 0 || selectedSpicesLocal.length === 0) return;
+    try {
+      const response = await fetch(
+        `/api/extra-pairings?meat=${encodeURIComponent(selectedMeatLocal)}&vegetables=${encodeURIComponent(selectedVegetablesLocal.join(","))}&spices=${encodeURIComponent(selectedSpicesLocal.join(","))}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch extra pairings.");
+      const data = await response.json();
+      setExtraPairings(data.extra_pairings || []);
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  };
+
+  // ✅ Reset selections when a new meat is chosen
+  const resetSelections = () => {
+    setPairings([]);
+    setSelectedVegetablesLocal([]);
+    setSpicesAndHerbs([]);
+    setSelectedSpicesLocal([]);
+    setExtraPairings([]);
+    setSelectedExtrasLocal([]);
+
+    // ✅ Clear state in Dashboard/NavBar
+    setSelectedVegetables([]);
+    setSelectedSpices([]);
+    setSelectedExtras([]);
   };
 
   return (
     <div className="w-full mx-auto py-16">
+      {/* Error Notification */}
+      {errorMessage && (
+        <div className="bg-red-500 text-white text-center p-3 mb-4">
+          {errorMessage}
+        </div>
+      )}
 
-      {/* Section Title */}
       <h2 className="text-4xl font-bold text-black uppercase tracking-wide mb-6 text-left">
         Select a Meat
       </h2>
 
-      {/* Meat Dropdown */}
       <div className="relative w-full max-w-[300px] mb-8">
         <select
-          value={selectedMeat}
-          onChange={(e) => setSelectedMeat(e.target.value)}
-          className="w-full p-3 text-lg font-semibold text-black bg-white  focus:ring-2 "
+          value={selectedMeatLocal}
+          onChange={(e) => setSelectedMeatLocal(e.target.value)}
+          className="w-full p-3 text-lg font-semibold text-black bg-white focus:ring-2"
         >
           <option value="">Choose a meat</option>
           {meats.map((meat) => (
@@ -117,37 +123,54 @@ export default function MeatPairings() {
         </select>
       </div>
 
-      {/* 🔹 3-Column Layout for Pairings */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="flex flex-col">
+        <VegetablePairings
+          pairings={pairings}
+          selectedVegetables={selectedVegetablesLocal}
+          setSelectedVegetables={(selected) => {
+            setSelectedVegetablesLocal(selected);
+            setSelectedVegetables(selected);
+          }}
+          fetchSpicesAndHerbs={fetchSpicesAndHerbs}
+        />
 
+        <SpicesHerbsPairings
+          spicesAndHerbs={spicesAndHerbs}
+          selectedSpices={selectedSpicesLocal}
+          setSelectedSpices={(selected) => {
+            setSelectedSpicesLocal(selected);
+            setSelectedSpices(selected);
+          }}
+        />
 
-          <VegetablePairings {...{ pairings, selectedVegetables, setSelectedVegetables, fetchSpicesAndHerbs }} />
-        </div>
-
-        <div className="flex flex-col">
-
-
-          <SpicesHerbsPairings {...{ spicesAndHerbs, selectedSpices, setSelectedSpices }} />
-        </div>
-
-        <div className="flex flex-col">
-
-          <ExtraPairings {...{ selectedMeat, selectedVegetables, selectedSpices, extraPairings, setExtraPairings, selectedExtras, setSelectedExtras }} />
-        </div>
+        <ExtraPairings
+          selectedMeat={selectedMeatLocal}
+          selectedVegetables={selectedVegetablesLocal}
+          selectedSpices={selectedSpicesLocal}
+          extraPairings={extraPairings}
+          setExtraPairings={setExtraPairings}
+          selectedExtras={selectedExtrasLocal}
+          setSelectedExtras={(selected) => {
+            setSelectedExtrasLocal(selected);
+            setSelectedExtras(selected);
+          }}
+        />
       </div>
 
-      {/* 🔹 2-Column Layout for Recipe & AI Pairings */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 items-start">
-        <div className="flex flex-col h-full">
-          <AiPairings {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
-        </div>
-
-        <div className="flex flex-col h-full">
-          <RecipeGenerator {...{ selectedMeat, selectedVegetables, selectedSpices, selectedExtras }} />
-
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 items-start w-full justify-start">
+        <AiPairings
+          selectedMeat={selectedMeatLocal}
+          selectedVegetables={selectedVegetablesLocal}
+          selectedSpices={selectedSpicesLocal}
+          selectedExtras={selectedExtrasLocal}
+        />
+        <RecipeGenerator
+          selectedMeat={selectedMeatLocal}
+          selectedVegetables={selectedVegetablesLocal}
+          selectedSpices={selectedSpicesLocal}
+          selectedExtras={selectedExtrasLocal}
+        />
       </div>
-    </div>
+    </div >
   );
 }

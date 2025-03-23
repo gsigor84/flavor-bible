@@ -1,11 +1,9 @@
-"use client"; // ✅ Ensure it's a client component
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Cabin } from "next/font/google";
-import MeatPairings from "@/components/MeatPairings";
 import HeroSection from "@/components/HeroSection";
-import NavBar from "@/components/NavBar";
 
 const cabin = Cabin({
   subsets: ["latin"],
@@ -15,10 +13,6 @@ const cabin = Cabin({
 export default function Dashboard() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedMeat, setSelectedMeat] = useState(() => "");
-  const [selectedVegetables, setSelectedVegetables] = useState(() => []);
-  const [selectedSpices, setSelectedSpices] = useState(() => []);
-  const [selectedExtras, setSelectedExtras] = useState(() => []);
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
 
@@ -46,33 +40,35 @@ export default function Dashboard() {
     checkAuth();
   }, []);
 
-  if (!isMounted) return null; // ✅ Prevents hydration error
+  if (!isMounted) return null;
 
   if (loading) return <div className="text-center mt-20">Loading...</div>;
 
   return (
     <div className={`min-h-screen bg-white text-black ${cabin.className}`}>
-      <div className="w-full px-2 sm:px-6 md:px-10">
-
-        <section className="my-16 py-6">
-          <h2 className="text-4xl sm:text-6xl font-bold">Flavor <br />Combinations Guide</h2>
-          <div className="w-1/3 h-3 mt-2 bg-[#63A1F2]"></div>
-          <p className="text-base sm:text-lg text-gray-600 mt-2">
-            Find the perfect match for your dish
+      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-12 py-12">
+        {/* Intro Section */}
+        <section className="mb-16">
+          <h2 className="text-4xl sm:text-6xl font-bold leading-tight">
+            Flavor <br /> Combinations Guide
+          </h2>
+          <div className="w-1/3 h-[6px] mt-3 bg-[#63A1F2]"></div>
+          <p className="text-base sm:text-lg text-gray-600 mt-4 max-w-xl">
+            Discover perfect ingredient combinations for meat, vegetables,
+            spices and more.
           </p>
+
+          {/* CTA Button */}
+          <button
+            onClick={() => router.push("/meat-pairings")}
+            className="mt-6 inline-block px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#63A1F2] hover:text-black transition-all"
+          >
+            Start Pairing
+          </button>
         </section>
 
+        {/* Hero Section */}
         <HeroSection />
-
-        <section className="w-full px-0 flex justify-start">
-          <MeatPairings
-            setSelectedMeat={setSelectedMeat}
-            setSelectedVegetables={setSelectedVegetables}
-            setSelectedSpices={setSelectedSpices}
-            setSelectedExtras={setSelectedExtras}
-          />
-
-        </section>
       </div>
     </div>
   );

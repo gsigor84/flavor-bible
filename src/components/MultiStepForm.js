@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
 import MeatStep from "./steps/MeatStep";
 import VegetablesStep from "./steps/VegetablesStep";
@@ -7,6 +5,7 @@ import SpicesStep from "./steps/SpicesStep";
 import ExtrasStep from "./steps/ExtrasStep";
 import AiPairings from "./AiPairings";
 import RecipeGenerator from "./RecipeGenerator";
+import StepIndicator from "./StepIndicator";
 
 export default function MultiStepForm() {
   const [step, setStep] = useState(1);
@@ -22,12 +21,12 @@ export default function MultiStepForm() {
   const [extraPairings, setExtraPairings] = useState([]);
   const [selectedExtras, setSelectedExtras] = useState([]);
 
-  // Auto scroll to top on step change
+  const steps = ["Meat", "Vegetables", "Spices", "Extras", "Recipe"];
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [step]);
 
-  // Fetch Spices after vegetables selected
   const fetchSpicesAndHerbs = async () => {
     if (!selectedMeat || selectedVegetables.length === 0) return;
     const res = await fetch(
@@ -37,7 +36,6 @@ export default function MultiStepForm() {
     setSpicesAndHerbs(data.spices_herbs || []);
   };
 
-  // Fetch Extras after spices selected
   useEffect(() => {
     const fetchExtras = async () => {
       if (!selectedMeat || selectedVegetables.length === 0 || selectedSpices.length === 0) return;
@@ -62,29 +60,23 @@ export default function MultiStepForm() {
 
   return (
     <div className="py-12 px-4 sm:px-6 lg:px-12">
-      <h2 className="text-3xl sm:text-5xl font-bold uppercase mb-8">Build Your Pairing</h2>
 
-      {/* Navigation Buttons */}
-      <div className="flex justify-center gap-4 mb-10">
+
+      <StepIndicator currentStep={step} steps={steps} />
+
+      <div className="flex justify-center gap-4 my-10">
         {step > 1 && (
-          <button
-            onClick={prevStep}
-            className="px-4 py-2 border border-black text-black"
-          >
+          <button onClick={prevStep} className="px-4 py-2 border border-black text-black">
             Previous
           </button>
         )}
         {step < maxStep && (
-          <button
-            onClick={nextStep}
-            className="px-4 py-2 border border-black text-black"
-          >
+          <button onClick={nextStep} className="px-4 py-2 border border-black text-black">
             Next
           </button>
         )}
       </div>
 
-      {/* Step Views */}
       {step === 1 && (
         <MeatStep
           selectedMeat={selectedMeat}

@@ -41,7 +41,6 @@ export default function Dashboard() {
   }, []);
 
   if (!isMounted) return null;
-
   if (loading) return <div className="text-center mt-20">Loading...</div>;
 
   return (
@@ -50,20 +49,53 @@ export default function Dashboard() {
         {/* Intro Section */}
         <section className="mb-16">
           <h2 className="text-4xl sm:text-6xl font-bold leading-tight">
-            Flavor <br /> Combinations Guide
+            Meat <br /> Combinations Guide
           </h2>
           <div className="w-1/3 h-[6px] mt-3 bg-[#63A1F2]"></div>
-          <p className="text-base sm:text-lg text-gray-600 mt-4 max-w-xl">
-            Discover perfect ingredient combinations for meat, vegetables,
-            spices and more.
+
+          <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
+            Discover perfect ingredient combinations for meat, vegetables, spices, and AI-powered recipes.
           </p>
+
+          {/* Step Overview (Now responsive) */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-6 text-sm font-medium text-gray-600">
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
+                1
+              </div>
+              <span className="text-black font-medium">Meat</span>
+            </div>
+            <div className="hidden sm:block h-[2px] w-4 bg-black" />
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
+                2
+              </div>
+              <span className="text-black font-medium">Vegetables</span>
+            </div>
+            <div className="hidden sm:block h-[2px] w-4 bg-black" />
+            <div className="flex items-center gap-2">
+              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
+                3
+              </div>
+              <span className="text-black font-medium">Spices + AI Recipe</span>
+            </div>
+          </div>
 
           {/* CTA Button */}
           <button
             onClick={() => router.push("/meat-pairings")}
-            className="mt-6 inline-block px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#63A1F2] hover:text-black transition-all"
+            className="mt-8 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#63A1F2] hover:text-white transition-all"
           >
-            Start Pairing
+            <span>Start Your Flavor Journey</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </section>
 

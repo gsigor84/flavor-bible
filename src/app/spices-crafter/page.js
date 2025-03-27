@@ -9,6 +9,10 @@ import ZaatarBlend from "@/components/spicecrafter/ZaatarBlend";
 import MasalaBlend from "@/components/spicecrafter/MasalaBlend";
 import MediterraneanBlend from "@/components/spicecrafter/MediterraneanBlend";
 import CajunBlend from "@/components/spicecrafter/CajunBlend";
+import AfricanBerbereBlend from "@/components/spicecrafter/AfricanBerbereBlend";
+import AdviehBlend from "@/components/spicecrafter/AdviehBlend";
+
+
 
 
 const blendOptions = [
@@ -16,6 +20,8 @@ const blendOptions = [
   { key: "cajun", label: "Spicy Cajun Rice Blend" },
   { key: "masala", label: "Indian Masala Rice Blend" },
   { key: "mediterranean", label: "Mediterranean Herb Blend" },
+  { key: "berbere", label: "African Berbere Spice Blend" },
+  { key: "advieh", label: "Persian Advieh Blend" },
 ];
 
 export default function SpiceCrafterPage() {
@@ -31,13 +37,17 @@ export default function SpiceCrafterPage() {
         return <CajunBlend />;
       case "mediterranean":
         return <MediterraneanBlend />;
+      case "berbere":
+        return <AfricanBerbereBlend />;
+      case "advieh":
+        return <AdviehBlend />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-black py-12 px-4 sm:px-6 md:px-10 lg:px-12">
+    <div className="min-h-screen bg-white text-black py-12 px-2 sm:px-6 md:px-10 lg:px-12">
       <h2 className="text-4xl sm:text-5xl font-bold mb-6">SpiceCrafter Blends</h2>
       <p className="text-base text-gray-700 mb-10 max-w-2xl">
         Click a blend to explore and adjust ingredients without leaving this page.
@@ -58,7 +68,7 @@ export default function SpiceCrafterPage() {
             <Dialog.Portal>
               <Dialog.Overlay className="fixed inset-0 bg-black/50" />
               <Dialog.Content
-                className="fixed top-1/2 left-1/2 w-[90vw] max-w-xl -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-xl space-y-4"
+                className="fixed top-1/2 left-1/2 w-[90vw] max-w-xl -translate-x-1/2 -translate-y-1/2 bg-white p-2 rounded-xl space-y-4"
               >
                 <div className="flex justify-between items-start">
                   <Dialog.Title className="text-xl font-bold"></Dialog.Title>

@@ -3,15 +3,14 @@
 import { useState } from "react";
 
 const baseBlend = {
-  oregano: 6,
-  basil: 6,
-  rosemary: 3,
-  garlic: 3,
-  onion: 3,
-  pepper: 3,
+  cinnamon: 6,
+  cardamom: 3,
+  cumin: 3,
+  "dried rose petals": 3,
+  nutmeg: 3,
 };
 
-export default function MediterraneanBlend() {
+export default function AdviehBlend() {
   const [blend, setBlend] = useState(baseBlend);
 
   const handleChange = (ingredient, newValue) => {
@@ -20,7 +19,9 @@ export default function MediterraneanBlend() {
 
     const newBlend = Object.entries(baseBlend).reduce((acc, [key, value]) => {
       const adjusted =
-        key === ingredient ? newValue : Math.max(1, Math.round(value * ratio));
+        key === ingredient
+          ? newValue
+          : Math.max(1, Math.round(value * ratio));
       acc[key] = adjusted;
       return acc;
     }, {});
@@ -47,12 +48,18 @@ export default function MediterraneanBlend() {
   return (
     <div className="p-2 max-w-md mx-auto bg-white space-y-6">
       <div className="flex items-center justify-start">
-        <h2 className="text-2xl font-bold">Mediterranean Herb Blend (Grams)</h2>
+        <h2 className="text-2xl font-bold">Persian Advieh Blend (Grams)</h2>
       </div>
+
       <div className="space-y-4">
         {Object.entries(blend).map(([ingredient, grams]) => (
-          <div key={ingredient} className="flex items-center justify-between gap-2">
-            <label className="w-24 capitalize text-gray-700">{ingredient}:</label>
+          <div
+            key={ingredient}
+            className="flex items-center justify-between gap-2"
+          >
+            <label className="w-24 capitalize text-gray-700">
+              {ingredient}:
+            </label>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => decrement(ingredient)}
@@ -65,7 +72,9 @@ export default function MediterraneanBlend() {
                 min="1"
                 step="1"
                 value={grams}
-                onChange={(e) => handleChange(ingredient, parseInt(e.target.value))}
+                onChange={(e) =>
+                  handleChange(ingredient, parseInt(e.target.value))
+                }
                 className="w-16 border border-gray-300 rounded px-2 py-1 text-center focus:outline-none focus:ring-2 focus:ring-[#63A1F2]"
               />
               <button

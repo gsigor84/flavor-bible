@@ -47,14 +47,11 @@ export default function CajunBlend() {
   const totalGrams = Object.values(blend).reduce((acc, val) => acc + val, 0);
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white space-y-6">
+    <div className="p-2 max-w-md mx-auto bg-white space-y-6">
       <div className="flex items-center justify-start">
         <h2 className="text-2xl font-bold">Spicy Cajun Rice Blend (Grams)</h2>
       </div>
 
-      <p className="text-sm text-gray-600">
-        A bold and spicy kick. Adjust any ingredient and all others will scale proportionally.
-      </p>
 
       <div className="space-y-4">
         {Object.entries(blend).map(([ingredient, grams]) => (

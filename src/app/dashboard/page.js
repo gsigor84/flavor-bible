@@ -51,7 +51,7 @@ export default function Dashboard() {
           <h2 className="text-4xl sm:text-6xl font-bold leading-tight">
             Meat <br /> Combinations Guide
           </h2>
-          <div className="w-1/3 h-[6px] mt-3 bg-[#63A1F2]"></div>
+          <div className="w-2/4 sm:w-2/3 md:w-1/3 h-[6px] mt-3 bg-[#63A1F2]"></div>
 
           <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
             Discover perfect ingredient combinations for meat, vegetables, spices, and AI-powered recipes.
@@ -97,6 +97,35 @@ export default function Dashboard() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
+        </section>
+
+        {/* SpiceCrafter Section */}
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-5xl font-bold leading-tight">
+            SpiceCrafter <br /> Discovery Tool
+          </h2>
+          <div className="w-2/5 sm:w-1/2 md:w-1/5 h-[6px] mt-3 bg-[#2703A6]" />
+
+          <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
+            Craft your spice blends with precision. Select key ingredients and let our AI enhance your pairing skills with unique suggestions.
+          </p>
+          <button
+            onClick={() => router.push("/spices-crafter")}
+
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#63A1F2] hover:text-white transition-all"
+          >
+            <span>Explore SpiceCrafter</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
         </section>
 
         {/* Hero Section */}

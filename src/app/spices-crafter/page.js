@@ -11,9 +11,9 @@ import MediterraneanBlend from "@/components/spicecrafter/MediterraneanBlend";
 import CajunBlend from "@/components/spicecrafter/CajunBlend";
 import AfricanBerbereBlend from "@/components/spicecrafter/AfricanBerbereBlend";
 import AdviehBlend from "@/components/spicecrafter/AdviehBlend";
-
-
-
+import RasElHanoutBlend from "@/components/spicecrafter/RasElHanoutBlend";
+import BahianBlend from "@/components/spicecrafter/BahianBlend";
+import CreoleBlend from "@/components/spicecrafter/CreoleBlend";
 
 const blendOptions = [
   { key: "zaatar", label: "Middle Eastern Za'atar Blend" },
@@ -22,6 +22,9 @@ const blendOptions = [
   { key: "mediterranean", label: "Mediterranean Herb Blend" },
   { key: "berbere", label: "African Berbere Spice Blend" },
   { key: "advieh", label: "Persian Advieh Blend" },
+  { key: "raselhanout", label: "Moroccan Ras el Hanout Blend" },
+  { key: "bahian", label: "Brazilian Bahian Seasoning" },
+  { key: "creole", label: "Southern Creole Spice Rice Blend" },
 ];
 
 export default function SpiceCrafterPage() {
@@ -41,13 +44,19 @@ export default function SpiceCrafterPage() {
         return <AfricanBerbereBlend />;
       case "advieh":
         return <AdviehBlend />;
+      case "raselhanout":
+        return <RasElHanoutBlend />;
+      case "bahian":
+        return <BahianBlend />;
+      case "creole":
+        return <CreoleBlend />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-black py-12 px-2 sm:px-6 md:px-10 lg:px-12">
+    <div className="min-h-screen bg-white text-black py-12 px-4 sm:px-6 md:px-10 lg:px-12">
       <h2 className="text-4xl sm:text-5xl font-bold mb-6">SpiceCrafter Blends</h2>
       <p className="text-base text-gray-700 mb-10 max-w-2xl">
         Click a blend to explore and adjust ingredients without leaving this page.

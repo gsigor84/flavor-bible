@@ -112,7 +112,7 @@ export default function Dashboard() {
           <button
             onClick={() => router.push("/spices-crafter")}
 
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#63A1F2] hover:text-white transition-all"
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#2703A6] hover:text-white transition-all"
           >
             <span>Explore SpiceCrafter</span>
             <svg

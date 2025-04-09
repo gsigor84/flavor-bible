@@ -14,6 +14,13 @@ import AdviehBlend from "@/components/spicecrafter/AdviehBlend";
 import RasElHanoutBlend from "@/components/spicecrafter/RasElHanoutBlend";
 import BahianBlend from "@/components/spicecrafter/BahianBlend";
 import CreoleBlend from "@/components/spicecrafter/CreoleBlend";
+import PersianRiceBlend from "@/components/spicecrafter/PersianRiceBlend";
+import ThaiCoconutRiceBlend from "@/components/spicecrafter/ThaiCoconutRiceBlend";
+import MexicanArrozRojoBlend from "@/components/spicecrafter/MexicanArrozRojoBlend";
+import LebaneseSevenSpiceBlend from "@/components/spicecrafter/LebaneseSevenSpiceBlend";
+import SpicyBlendExtended from "@/components/spicecrafter/SpicyBlendExtended";
+import SriLankanBlend from "@/components/spicecrafter/SriLankanBlend";
+
 
 const blendOptions = [
   { key: "zaatar", label: "Middle Eastern Za'atar Blend" },
@@ -25,6 +32,12 @@ const blendOptions = [
   { key: "raselhanout", label: "Moroccan Ras el Hanout Blend" },
   { key: "bahian", label: "Brazilian Bahian Seasoning" },
   { key: "creole", label: "Southern Creole Spice Rice Blend" },
+  { key: "persianrice", label: "Persian Rice Spice Blend" },
+  { key: "thaicoconut", label: "Thai Coconut Rice Blend" },
+  { key: "mexican", label: "Mexican Arroz Rojo Spice Blend" },
+  { key: "lebanese", label: "Lebanese Seven-Spice Rice Blend" },
+  { key: "spicy-extended", label: "West African Jollof" },
+  { key: "sri-lankan", label: "Sri Lankan Coconut & Curry Leaf Blend" },
 ];
 
 export default function SpiceCrafterPage() {
@@ -50,6 +63,18 @@ export default function SpiceCrafterPage() {
         return <BahianBlend />;
       case "creole":
         return <CreoleBlend />;
+      case "persianrice":
+        return <PersianRiceBlend />;
+      case "thaicoconut":
+        return <ThaiCoconutRiceBlend />;
+      case "mexican":
+        return <MexicanArrozRojoBlend />;
+      case "lebanese":
+        return <LebaneseSevenSpiceBlend />;
+      case "spicy-extended":
+        return <SpicyBlendExtended />;
+      case "sri-lankan":
+        return <SriLankanBlend />;
       default:
         return null;
     }

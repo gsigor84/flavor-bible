@@ -128,6 +128,33 @@ export default function Dashboard() {
 
         </section>
 
+        {/* SauceCrafter Section */}
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-5xl font-bold leading-tight">
+            SauceCrafter <br /> Creation Studio
+          </h2>
+          <div className="w-2/5 sm:w-1/2 md:w-1/3 h-[6px] mt-3 bg-[#A63D03]" />
+
+          <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
+            Experiment with delicious homemade sauces. Adjust ingredient ratios, get tips, and create blends that elevate every dish.
+          </p>
+          <button
+            onClick={() => router.push("/sauce-crafter")}
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#A63D03] hover:text-white transition-all"
+          >
+            <span>Explore SauceCrafter</span>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </section>
+
         {/* Hero Section */}
         <HeroSection />
       </div>

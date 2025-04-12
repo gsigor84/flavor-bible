@@ -56,28 +56,28 @@ export default function Dashboard() {
           <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
             Discover perfect ingredient combinations for meat, vegetables, spices, and AI-powered recipes.
           </p>
-
-          {/* Step Overview (Now responsive) */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 mt-6 text-sm font-medium text-gray-600">
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-                1
+          <div className="mt-6 text-sm font-medium text-gray-600">
+            <div className="flex flex-wrap justify-center sm:justify-start items-center gap-3 sm:gap-6">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] sm:text-xs">
+                  1
+                </div>
+                <span className="text-black text-xs sm:text-sm">Meat</span>
               </div>
-              <span className="text-black font-medium">Meat</span>
-            </div>
-            <div className="hidden sm:block h-[2px] w-4 bg-black" />
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-                2
+              <div className="h-[2px] w-2 sm:w-4 bg-black" />
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] sm:text-xs">
+                  2
+                </div>
+                <span className="text-black text-xs sm:text-sm">Vegetables</span>
               </div>
-              <span className="text-black font-medium">Vegetables</span>
-            </div>
-            <div className="hidden sm:block h-[2px] w-4 bg-black" />
-            <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-                3
+              <div className="h-[2px] w-2 sm:w-4 bg-black" />
+              <div className="flex items-center gap-1 sm:gap-2">
+                <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black text-white flex items-center justify-center text-[10px] sm:text-xs">
+                  3
+                </div>
+                <span className="text-black text-xs sm:text-sm">Spices + AI</span>
               </div>
-              <span className="text-black font-medium">Spices + AI Recipe</span>
             </div>
           </div>
 
@@ -111,21 +111,13 @@ export default function Dashboard() {
           </p>
           <button
             onClick={() => router.push("/spices-crafter")}
-
             className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#2703A6] hover:text-white transition-all"
           >
             <span>Explore SpiceCrafter</span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-
         </section>
 
         {/* SauceCrafter Section */}
@@ -133,7 +125,7 @@ export default function Dashboard() {
           <h2 className="text-3xl sm:text-5xl font-bold leading-tight">
             SauceCrafter <br /> Creation Studio
           </h2>
-          <div className="w-2/5 sm:w-1/2 md:w-1/3 h-[6px] mt-3 bg-[#A63D03]" />
+          <div className="w-2/5 sm:w-1/2 md:w-1/5 h-[6px] mt-3 bg-[#A63D03]" />
 
           <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
             Experiment with delicious homemade sauces. Adjust ingredient ratios, get tips, and create blends that elevate every dish.
@@ -143,13 +135,28 @@ export default function Dashboard() {
             className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#A63D03] hover:text-white transition-all"
           >
             <span>Explore SauceCrafter</span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </section>
+
+        {/* Marination Master Section */}
+        <section className="mb-20">
+          <h2 className="text-3xl sm:text-5xl font-bold leading-tight">
+            Marination Master <br /> Flavor Infusion
+          </h2>
+          <div className="w-2/5 sm:w-1/2 md:w-1/5 h-[6px] mt-3 bg-[#0DA64F]" />
+
+          <p className="text-base sm:text-lg text-gray-700 mt-4 max-w-xl">
+            Explore balanced marinades tailored for meats. Adjust ratios, understand timing, and bring bold flavor to every bite.
+          </p>
+          <button
+            onClick={() => router.push("/marination-master")}
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-black text-white text-sm font-semibold uppercase tracking-wide hover:bg-[#0DA64F] hover:text-white transition-all"
+          >
+            <span>Explore Marination Master</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>

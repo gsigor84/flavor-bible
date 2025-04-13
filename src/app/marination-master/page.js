@@ -6,12 +6,26 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 // ✅ Import your marinade component
 import AsianInspiredMarinade from "@/components/marinationmaster/AsianInspiredMarinade";
+import TangyMustardMarinade from "@/components/marinationmaster/TangyMustardMarinade";
+import FruityMarinadeStepper from "@/components/marinationmaster/FruityMarinadeStepper";
+import SpicyMarinadeStepper from "@/components/marinationmaster/SpicyMarinadeStepper";
+import HerbaceousMarinadeStepper from "@/components/marinationmaster/HerbaceousMarinadeStepper";
+import SweetChilliMarinadeStepper from "@/components/marinationmaster/SweetChilliMarinadeStepper";
+import CitrusSoyMarinadeStepper from "@/components/marinationmaster/CitrusSoyMarinadeStepper";
+import BbqMarinadeStepper from "@/components/marinationmaster/BbqMarinadeStepper";
 
 export default function MarinationMasterPage() {
   const [selectedMarinade, setSelectedMarinade] = useState(null);
 
   const marinadeOptions = [
     { key: "asianinspired", label: "Asian-Inspired Marinade" },
+    { key: "tangymustard", label: "Tangy Mustard Marinade" },
+    { key: "fruity", label: "Fruity Marinade" },
+    { key: "spicy", label: "Spicy Marinade" },
+    { key: "herbaceous", label: "Herbaceous Marinade" },
+    { key: "sweetchilli", label: "Sweet Chilli Marinade" },
+    { key: "citrussoy", label: "Citrus-Soy Marinade" },
+    { key: "bbqmarinade", label: "BBQ Marinade" },
     // Add more as needed
   ];
 
@@ -19,6 +33,20 @@ export default function MarinationMasterPage() {
     switch (selectedMarinade) {
       case "asianinspired":
         return <AsianInspiredMarinade />;
+      case "tangymustard":
+        return <TangyMustardMarinade />;
+      case "fruity":
+        return <FruityMarinadeStepper />;
+      case "spicy":
+        return <SpicyMarinadeStepper />;
+      case "herbaceous":
+        return <HerbaceousMarinadeStepper />;
+      case "sweetchilli":
+        return <SweetChilliMarinadeStepper />;
+      case "citrussoy":
+        return <CitrusSoyMarinadeStepper />;
+      case "bbqmarinade":
+        return <BbqMarinadeStepper />;
       default:
         return null;
     }

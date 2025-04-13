@@ -13,6 +13,11 @@ import HerbaceousMarinadeStepper from "@/components/marinationmaster/HerbaceousM
 import SweetChilliMarinadeStepper from "@/components/marinationmaster/SweetChilliMarinadeStepper";
 import CitrusSoyMarinadeStepper from "@/components/marinationmaster/CitrusSoyMarinadeStepper";
 import BbqMarinadeStepper from "@/components/marinationmaster/BbqMarinadeStepper";
+import MayoPestoMarinadeStepper from "@/components/marinationmaster/MayoPestoMarinadeStepper";
+import SaladCreamHorseradishMarinadeStepper from "@/components/marinationmaster/SaladCreamHorseradishMarinadeStepper";
+import NandosMayoMarinadeStepper from "@/components/marinationmaster/NandosMayoMarinadeStepper";
+import CranberryAppleMarinadeStepper from "@/components/marinationmaster/CranberryAppleMarinadeStepper";
+
 
 export default function MarinationMasterPage() {
   const [selectedMarinade, setSelectedMarinade] = useState(null);
@@ -26,6 +31,11 @@ export default function MarinationMasterPage() {
     { key: "sweetchilli", label: "Sweet Chilli Marinade" },
     { key: "citrussoy", label: "Citrus-Soy Marinade" },
     { key: "bbqmarinade", label: "BBQ Marinade" },
+    { key: "mayopesto", label: "Mayo-Pesto Marinade" },
+    { key: "saladhorseradish", label: "Salad Cream-Horseradish Marinade" },
+    { key: "nandosmayo", label: "Nando's-Mayo Marinade" },
+    { key: "cranberryapple", label: "Cranberry-Apple Marinade" },
+
     // Add more as needed
   ];
 
@@ -47,6 +57,15 @@ export default function MarinationMasterPage() {
         return <CitrusSoyMarinadeStepper />;
       case "bbqmarinade":
         return <BbqMarinadeStepper />;
+      case "mayopesto":
+        return <MayoPestoMarinadeStepper />;
+      case "saladhorseradish":
+        return <SaladCreamHorseradishMarinadeStepper />;
+      case "nandosmayo":
+        return <NandosMayoMarinadeStepper />;
+      case "cranberryapple":
+        return <CranberryAppleMarinadeStepper />;
+
       default:
         return null;
     }
